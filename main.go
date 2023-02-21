@@ -12,6 +12,14 @@ func main() {
 	fmt.Printf("We have total of %v tickets and currently %v tickets left.\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend.")
 
+	// var bookings = [50]string{}
+
+	var bookings [50]string
+
+	//Assigning Value to the Array using Index
+	// bookings[0] = "Sharif"
+	// bookings[1] = "Nupur"
+
 	var firstName string
 	var lastName string
 	var email string
@@ -30,9 +38,15 @@ func main() {
 	fmt.Scan(&userTickets)
 
 	remainingTickets = remainingTickets - userTickets
+	bookings[0] = firstName + " " + lastName
 
 	// userName = "Tom"
 	// userTickets = 2
+	fmt.Printf("The whole array: %v\n", bookings)
+	fmt.Printf("The first element of array:  %v\n", bookings[0])
+	fmt.Printf("The type of array: %T\n", bookings)
+	fmt.Printf("The length of array: %v\n", len(bookings))
+
 	fmt.Printf("Thank you %v %v for booking %v tickets, your tickets have been sent to %v. \n", firstName, lastName, userTickets, email)
 	fmt.Printf("There are %v tickets left for '%v' \n", remainingTickets, conferenceName)
 }
