@@ -17,12 +17,7 @@ func main() {
 	var email string
 	var userTickets uint
 
-	// var bookings = [50]string{}
 	for {
-
-		//Assigning Value to the slice using Index
-		// bookings[0] = "Sharif"
-		// bookings[1] = "Nupur"
 
 		fmt.Println("Enter your first name: ")
 		fmt.Scan(&firstName)
@@ -44,21 +39,10 @@ func main() {
 			remainingTickets = remainingTickets - userTickets
 			bookings = append(bookings, firstName+" "+lastName)
 
-			// userName = "Tom"
-			// userTickets = 2
-			// fmt.Printf("The whole slice: %v\n", bookings)
-			// fmt.Printf("The first element of slice:  %v\n", bookings[0])
-			// fmt.Printf("The type of slice: %T\n", bookings)
-			// fmt.Printf("The length of slice: %v\n", len(bookings))
-
 			fmt.Printf("Thank you %v %v for booking %v tickets, your tickets have been sent to %v. \n", firstName, lastName, userTickets, email)
 			fmt.Printf("There are %v tickets left for '%v' \n", remainingTickets, conferenceName)
-			firstNames := []string{}
-			for _, booking := range bookings {
-				var names = strings.Fields(booking)
-				firstNames = append(firstNames, names[0])
-			}
-			fmt.Printf("These are first names of all our bookings are: %v\n", firstNames)
+			// Print First Names
+			printFirstNames(bookings)
 
 			if remainingTickets == 0 {
 				//end the program
@@ -86,4 +70,13 @@ func greetUser(confName string, confTickets uint, remainingTickets uint) {
 	fmt.Printf("Welcome to %v booking application.\n", confName)
 	fmt.Printf("We have total of %v tickets and currently %v tickets left.\n", confTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend.")
+}
+
+func printFirstNames(bookings []string) {
+	firstNames := []string{}
+	for _, booking := range bookings {
+		var names = strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+	fmt.Printf("These are first names of all our bookings are: %v\n", firstNames)
 }
