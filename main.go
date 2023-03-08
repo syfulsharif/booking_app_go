@@ -5,44 +5,30 @@ import (
 	"strings"
 )
 
-func main() {
-	conferenceName := "Go Conferenece"
-	const conferenceTickets uint = 50
-	var remainingTickets uint = 50
-	greetUser(conferenceName, conferenceTickets, remainingTickets)
+const conferenceTickets uint = 50
 
-	var bookings []string
-	var firstName string
-	var lastName string
-	var email string
-	var userTickets uint
+var conferenceName = "Go Conferenece"
+
+var remainingTickets uint = 50
+
+var bookings []string
+
+func main() {
+
+	greetUser()
 
 	for {
 
-		fmt.Println("Enter your first name: ")
-		fmt.Scan(&firstName)
-
-		fmt.Println("Enter your last name: ")
-		fmt.Scan(&lastName)
-
-		fmt.Println("Enter your email address: ")
-		fmt.Scan(&email)
-
-		fmt.Println("Enter the number of tickets you want to book: ")
-		fmt.Scan(&userTickets)
-
-		isValidName := len(firstName) >= 2 && len(lastName) >= 2
-		isValidEmail := strings.Contains(email, "@")
-		isValidTicketNumber := userTickets > 0 && userTickets < remainingTickets
+		//User Input Section
+		firstName, lastName, email, userTickets := getUserInput()
+		//User Input Validation
+		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
-			remainingTickets = remainingTickets - userTickets
-			bookings = append(bookings, firstName+" "+lastName)
-
-			fmt.Printf("Thank you %v %v for booking %v tickets, your tickets have been sent to %v. \n", firstName, lastName, userTickets, email)
-			fmt.Printf("There are %v tickets left for '%v' \n", remainingTickets, conferenceName)
+			//Booking Logic
+			bookTicket(userTickets, firstName, lastName, email)
 			// Print First Names
-			fmt.Printf("These are first names of all our bookings are: %v\n", getFirstNames(bookings))
+			fmt.Printf("These are first names of all our bookings are: %v\n", getFirstNames())
 
 			if remainingTickets == 0 {
 				//end the program
@@ -66,13 +52,13 @@ func main() {
 
 }
 
-func greetUser(confName string, confTickets uint, remainingTickets uint) {
-	fmt.Printf("Welcome to %v booking application.\n", confName)
-	fmt.Printf("We have total of %v tickets and currently %v tickets left.\n", confTickets, remainingTickets)
+func greetUser() {
+	fmt.Printf("Welcome to %v booking application.\n", conferenceName)
+	fmt.Printf("We have total of %v tickets and currently %v tickets left.\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend.")
 }
 
-func getFirstNames(bookings []string) []string {
+func getFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
 		var names = strings.Fields(booking)
@@ -81,4 +67,41 @@ func getFirstNames(bookings []string) []string {
 	//Returning First Names I/O printing
 	return firstNames
 	// fmt.Printf("These are first names of all our bookings are: %v\n", firstNames)
+}
+
+func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool) {
+	isValidName := len(firstName) >= 2 && len(lastName) >= 2
+	isValidEmail := strings.Contains(email, "@")
+	isValidTicketNumber := userTickets > 0 && userTickets < remainingTickets
+	return isValidName, isValidEmail, isValidTicketNumber
+}
+
+func getUserInput() (string, string, string, uint) {
+
+	var firstName string
+	var lastName string
+	var email string
+	var userTickets uint
+
+	fmt.Println("Enter your first name: ")
+	fmt.Scan(&firstName)
+
+	fmt.Println("Enter your last name: ")
+	fmt.Scan(&lastName)
+
+	fmt.Println("Enter your email address: ")
+	fmt.Scan(&email)
+
+	fmt.Println("Enter the number of tickets you want to book: ")
+	fmt.Scan(&userTickets)
+
+	return firstName, lastName, email, userTickets
+}
+
+func bookTicket(userTickets uint, firstName string, lastName string, email string) ([]string, uint) {
+	remainingTickets = remainingTickets - userTickets
+	fmt.Printf("Thank you %v %v for booking %v tickets, your tickets have been sent to %v. \n", firstName, lastName, userTickets, email)
+	fmt.Printf("There are %v tickets left for '%v' \n", remainingTickets, conferenceName)
+	bookings = append(bookings, firstName+" "+lastName)
+	return bookings, remainingTickets
 }
