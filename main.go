@@ -7,24 +7,22 @@ import (
 
 func main() {
 	conferenceName := "Go Conferenece"
-	const conferenceTickets int = 50
+	const conferenceTickets uint = 50
 	var remainingTickets uint = 50
-	fmt.Printf("Welcome to %v booking application.\n", conferenceName)
-	fmt.Printf("We have total of %v tickets and currently %v tickets left.\n", conferenceTickets, remainingTickets)
-	fmt.Println("Get your tickets here to attend.")
+	greetUser(conferenceName, conferenceTickets, remainingTickets)
+
+	var bookings []string
+	var firstName string
+	var lastName string
+	var email string
+	var userTickets uint
 
 	// var bookings = [50]string{}
 	for {
-		var bookings []string
 
 		//Assigning Value to the slice using Index
 		// bookings[0] = "Sharif"
 		// bookings[1] = "Nupur"
-
-		var firstName string
-		var lastName string
-		var email string
-		var userTickets uint
 
 		fmt.Println("Enter your first name: ")
 		fmt.Scan(&firstName)
@@ -82,4 +80,10 @@ func main() {
 
 	}
 
+}
+
+func greetUser(confName string, confTickets uint, remainingTickets uint) {
+	fmt.Printf("Welcome to %v booking application.\n", confName)
+	fmt.Printf("We have total of %v tickets and currently %v tickets left.\n", confTickets, remainingTickets)
+	fmt.Println("Get your tickets here to attend.")
 }
